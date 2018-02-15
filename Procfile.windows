@@ -1,1 +1,1 @@
-web: python bot_tg.py
+web: gunicorn bot_tg.py
