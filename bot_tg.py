@@ -12,7 +12,7 @@ def get_week():
 
 bot = tb.TeleBot(token)
 
-@bot.message_handler(regexp="(расписание|дай расписание|кинь расписание|расп)")
+@bot.message_handler(commands=['raspisanie'])
 def send_msg(msg):
 	if (get_week() % 2 == 0):
 		bot.send_message(msg.chat.id, chet)
