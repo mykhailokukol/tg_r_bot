@@ -41,7 +41,7 @@ bot = tb.TeleBot(token)
 
 @bot.message_handler(commands=['this_week', 'next_week', 'tomorrow', 'today'])
 def send_msg(msg):
-	if msg.text == '/this_week':
+	if msg.text == '/this_week' or msg.text == '/this_week@pi_raspisanie_bot':
 		if (get_week() % 2 == 0):
 			bot.send_message(msg.chat.id, chet)
 		elif (get_week() % 2 == 1):
@@ -49,7 +49,7 @@ def send_msg(msg):
 		else:
 			bot.send_message(msg.chat.id, "Week == 0")
 
-	elif msg.text == '/next_week':
+	elif msg.text == '/next_week' or msg.text == '/next_week@pi_raspisanie_bot':
 		if (get_next_week() % 2 == 0):
 			bot.send_message(msg.chat.id, chet)
 		elif (get_next_week() % 2 == 1):
@@ -57,7 +57,7 @@ def send_msg(msg):
 		else:
 			bot.send_message(msg.chat.id, "Week == 0")
 
-	elif msg.text == '/tomorrow':
+	elif msg.text == '/tomorrow' or msg.text == '/tomorrow@pi_raspisanie_bot':
 		if (get_week() % 2 == 0):	
 			if get_next_day() == 0:
 				bot.send_message(msg.chat.id, n_monday)
@@ -85,7 +85,7 @@ def send_msg(msg):
 			else:
 				bot.send_message(msg.chat.id, 'Завтра выходной.')
 
-	elif msg.text == '/today':
+	elif msg.text == '/today' or msg.text == '/today@pi_raspisanie_bot':
 		if (get_week() % 2 == 0):	
 			if get_current_day() == 0:
 				bot.send_message(msg.chat.id, c_monday)
