@@ -29,7 +29,7 @@ def get_next_week():
 def get_next_day():
 	day = date.isocalendar()[2]
 	if day != 6:
-		return (day + 1)
+		return day
 	else:
 		return 0
 
@@ -39,77 +39,79 @@ def get_current_day():
 
 bot = tb.TeleBot(token)
 
-@bot.message_handler(commands=['this_week'])
-def send_msg0(msg):
-	if (get_week() % 2 == 0):
-		bot.send_message(msg.chat.id, chet)
-	elif (get_week() % 2 == 1):
-		bot.send_message(msg.chat.id, nechet)
-	else:
-		bot.send_message(msg.chat.id, "Week == 0")	
+@bot.message_handler(commands=['this_week', 'next_week', 'tomorrow', 'today'])
+def send_msg(msg):
+	if msg.text == '/this_week':
+		if (get_week() % 2 == 0):
+			bot.send_message(msg.chat.id, chet)
+		elif (get_week() % 2 == 1):
+			bot.send_message(msg.chat.id, nechet)
+		else:
+			bot.send_message(msg.chat.id, "Week == 0")
 
-@bot.message_handler(commands=['next_week'])
-def send_msg1(msg):
-	if (get_next_week() % 2 == 0):
-		bot.send_message(msg.chat.id, chet)
-	elif (get_next_week() % 2 == 1):
-		bot.send_message(msg.chat.id, nechet)
-	else:
-		bot.send_message(msg.chat.id, "Week == 0")
+	elif msg.text == '/next_week':
+		if (get_next_week() % 2 == 0):
+			bot.send_message(msg.chat.id, chet)
+		elif (get_next_week() % 2 == 1):
+			bot.send_message(msg.chat.id, nechet)
+		else:
+			bot.send_message(msg.chat.id, "Week == 0")
 
-@bot.message_handler(commands=['tomorrow'])
-def send_msg2(msg):
-	if (get_week % 2 == 0):	
-		if get_next_day() == 0:
-			bot.send_message(msg.chat.id, n_monday)
-		elif get_next_day() == 1:
-			bot.send_message(msg.chat.id, c_tuesday)
-		elif get_next_day() == 2:
-			bot.send_message(msg.chat.id, c_wednesday)
-		elif get_next_day() == 3:
-			bot.send_message(msg.chat.id, c_thursday)
-		elif get_next_day() == 4:
-			bot.send_message(msg.chat.id, c_friday)
-		else bot.send_message(msg.chat.id, 'Завтра выходной.')
-	elif (get_week % 2 == 1):
-		if get_next_day() == 0:
-			bot.send_message(msg.chat.id, c_monday)
-		elif get_next_day() == 1:
-			bot.send_message(msg.chat.id, n_tuesday)
-		elif get_next_day() == 2:
-			bot.send_message(msg.chat.id, n_wednesday)
-		elif get_next_day() == 3:
-			bot.send_message(msg.chat.id, n_thursday)
-		elif get_next_day() == 4:
-			bot.send_message(msg.chat.id, n_friday)
-		else bot.send_message(msg.chat.id, 'Завтра выходной.')
+	elif msg.text == '/tomorrow':
+		if (get_week() % 2 == 0):	
+			if get_next_day() == 0:
+				bot.send_message(msg.chat.id, n_monday)
+			elif get_next_day() == 1:
+				bot.send_message(msg.chat.id, c_tuesday)
+			elif get_next_day() == 2:
+				bot.send_message(msg.chat.id, c_wednesday)
+			elif get_next_day() == 3:
+				bot.send_message(msg.chat.id, c_thursday)
+			elif get_next_day() == 4:
+				bot.send_message(msg.chat.id, c_friday)
+			else:
+				bot.send_message(msg.chat.id, 'Завтра выходной.')
+		elif (get_week() % 2 == 1):
+			if get_next_day() == 0:
+				bot.send_message(msg.chat.id, c_monday)
+			elif get_next_day() == 1:
+				bot.send_message(msg.chat.id, n_tuesday)
+			elif get_next_day() == 2:
+				bot.send_message(msg.chat.id, n_wednesday)
+			elif get_next_day() == 3:
+				bot.send_message(msg.chat.id, n_thursday)
+			elif get_next_day() == 4:
+				bot.send_message(msg.chat.id, n_friday)
+			else:
+				bot.send_message(msg.chat.id, 'Завтра выходной.')
 
-@bot.message_handler(commands=['today'])
-def send_msg3(msg):
-	if (get_week % 2 == 0):	
-		if get_current_day() == 0:
-			bot.send_message(msg.chat.id, c_monday)
-		elif get_current_day() == 1:
-			bot.send_message(msg.chat.id, c_tuesday)
-		elif get_current_day() == 2:
-			bot.send_message(msg.chat.id, c_wednesday)
-		elif get_current_day() == 3:
-			bot.send_message(msg.chat.id, c_thursday)
-		elif get_current_day() == 4:
-			bot.send_message(msg.chat.id, c_friday)
-		else bot.send_message(msg.chat.id, 'Сегодня выходной.')
-	elif (get_week % 2 == 1):
-		if get_current_day() == 0:
-			bot.send_message(msg.chat.id, n_monday)
-		elif get_current_day() == 1:
-			bot.send_message(msg.chat.id, n_tuesday)
-		elif get_current_day() == 2:
-			bot.send_message(msg.chat.id, n_wednesday)
-		elif get_current_day() == 3:
-			bot.send_message(msg.chat.id, n_thursday)
-		elif get_current_day() == 4:
-			bot.send_message(msg.chat.id, n_friday)
-		else bot.send_message(msg.chat.id, 'Сегодня выходной.')
+	elif msg.text == '/today':
+		if (get_week() % 2 == 0):	
+			if get_current_day() == 0:
+				bot.send_message(msg.chat.id, c_monday)
+			elif get_current_day() == 1:
+				bot.send_message(msg.chat.id, c_tuesday)
+			elif get_current_day() == 2:
+				bot.send_message(msg.chat.id, c_wednesday)
+			elif get_current_day() == 3:
+				bot.send_message(msg.chat.id, c_thursday)
+			elif get_current_day() == 4:
+				bot.send_message(msg.chat.id, c_friday)
+			else:
+				bot.send_message(msg.chat.id, 'Сегодня выходной.')
+		elif (get_week() % 2 == 1):
+			if get_current_day() == 0:
+				bot.send_message(msg.chat.id, n_monday)
+			elif get_current_day() == 1:
+				bot.send_message(msg.chat.id, n_tuesday)
+			elif get_current_day() == 2:
+				bot.send_message(msg.chat.id, n_wednesday)
+			elif get_current_day() == 3:
+				bot.send_message(msg.chat.id, n_thursday)
+			elif get_current_day() == 4:
+				bot.send_message(msg.chat.id, n_friday)
+			else:
+				bot.send_message(msg.chat.id, 'Сегодня выходной.')
 
 if __name__ == "__main__":
 		bot.polling(none_stop = True)
