@@ -39,7 +39,7 @@ def get_current_day():
 
 bot = tb.TeleBot(token)
 
-@bot.message_handler(commands=['this_week', 'next_week', 'tomorrow', 'today'])
+@bot.message_handler(commands=['this_week', 'next_week', 'tomorrow', 'today', 'traffic'])
 def send_msg(msg):
 	if msg.text == '/this_week' or msg.text == '/this_week@pi_raspisanie_bot':
 		if (get_week() % 2 == 0):
@@ -112,6 +112,9 @@ def send_msg(msg):
 				bot.send_message(msg.chat.id, n_friday)
 			else:
 				bot.send_message(msg.chat.id, 'Сегодня выходной.')
+
+	elif msg.text == '/traffic' or msg.text == '/traffic@pi_raspisanie_bot':
+		bot.send_message(msg.chat.id, 'https://youtu.be/s83yL0mQ7mc')
 
 if __name__ == "__main__":
 		bot.polling(none_stop = True)
