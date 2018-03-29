@@ -28,7 +28,7 @@ def get_next_week():
 
 def get_next_day():
 	day = date.isocalendar()[2]
-	if day != 6:
+	if day != 7:
 		return day
 	else:
 		return 0
